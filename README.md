@@ -19,6 +19,7 @@ Repositorio para la materia de Complejidad Computacional de la carrera de Cienci
 * [Practicas]()
   * [Practica 1](https://github.com/VictorDeGallegos/Complejidad-Computacional/tree/main/practicas/Practica1)
 * [Tareas]()
+  * [Tarea 1](https://github.com/VictorDeGallegos/Complejidad-Computacional/tree/main/tareas/tarea%201)
 
 ## Expresiones de Gratitud 🎁
 
