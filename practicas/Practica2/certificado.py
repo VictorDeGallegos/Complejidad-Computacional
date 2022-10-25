@@ -108,7 +108,16 @@ if __name__ == "__main__":
     # imprimir certificado aleatorio
     # certificadoAleatorio()
     certificado = certificadoAleatorio(graph)
-    print('Un posible certificado es: ', certificado)
+
+    # Diccionario de colores para asignar un color diferente a cada indice de la lista para imprimirlo por color en la consola
+    colores = ['\033[1;34;40m', '\033[1;31;40m', '\033[1;33;40m',
+               '\033[1;32;40m', '\033[1;35;40m', '\033[1;36;40m']
+
+    print("Un posible certificado es: ", end="")
+    # Imprimir ceritificado con colores
+    for i in range(len(certificado)):
+        print(colores[i], certificado[i], end=" ")
+    print()
 
     # Guardar certificado aleatorio en archivo
     archivo = open(sys.argv[2], "w")

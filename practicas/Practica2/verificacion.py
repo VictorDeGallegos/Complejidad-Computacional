@@ -67,9 +67,20 @@ if __name__ == "__main__":
         k = 2
         print("k = 2")
 
-    print('Certificado: ', certificado)
+    # print('Certificado: ', certificado)
+
+    # Diccionario de colores para asignar un color diferente a cada indice de la lista para imprimirlo por color en la consola
+    colores = ['\033[1;34;40m', '\033[1;31;40m', '\033[1;33;40m',
+               '\033[1;32;40m', '\033[1;35;40m', '\033[1;36;40m']
+
+    # Imprimir grafica con colores
+    print("\nCertificado:", end="")
+    for i in range(len(certificado)):
+        print(colores[i], certificado[i], end=' ')
     pregunta = "¿El ejemplar, con el certificado dado, satisface la condición de pertenencia al lenguaje correspondiente?"
+    # Si es correcto lo imprime en color verde
     if verificacion(k, lista_aristas, certificado):
-        print("{} Sí\n".format(pregunta))
+        print("\n\n", colores[3], pregunta, "SI", end='\n')
+    # Si es incorrecto lo imprime en color rojo
     else:
-        print("{} No\n".format(pregunta))
+        print("\n\n", colores[1], pregunta, "NO", end='\n')
