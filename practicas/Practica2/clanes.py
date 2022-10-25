@@ -1,5 +1,6 @@
 import copy
 import sys
+import random
 from queue import Queue
 
 # Función auxiliar para decir si una gráfica es bipartita o no.
@@ -134,140 +135,8 @@ def existenTresClanes(G):
 
     return False
 
-# Funcion para generar una subgrafica (certificado) a partir del archivo graph_si.txt que genera un archivo certificado.txt
 
-
-def certificado(G):
-    v = len(G)
-    # Obtenemos el complemento de G para revisar si es una
-    # gráfica bipartita.
-    # Consideramos todos los valores del diccionario, menos los
-    # que se traten de un vértice conectado consigo mismo G[i][i].
-    C = copy.deepcopy(G)
-    for u in C:
-        for v in C:
-            C[u][v] = None
-
-    for i in G:
-        for j in G:
-            C[i][j] = not G[i][j] if i != j else 0
-
-    # Si la gráfica no es bipartita, entonces no existen tres clanes.
-    if (esBipartita(C) == False):
-        return False
-
-    # Obtenemos los vértices de la gráfica bipartita.
-    vertices = list(C.keys())
-    v1 = vertices[0]
-    v2 = vertices[1]
-
-    # Creamos una gráfica bipartita con los vértices de la gráfica
-    # original.
-    B = dict()
-    for i in G:
-        B[i] = dict()
-
-    # Creamos una gráfica bipartita con los vértices de la gráfica
-    # original.
-    for i in G:
-        for j in G:
-            if (C[i][j] == 0):
-                B[i][j] = G[i][j]
-
-    # Revisamos si la gráfica bipartita tiene un ciclo de longitud
-    # 3.
-    for i in B:
-        for j in B:
-            for k in B:
-                if (B[i][j] and B[j][k] and B[k][i]):
-                    # print("Existe un ciclo de longitud 3")
-                    print(i, j, k)  # Imprime los vertices del ciclo
-                    print("Generando certificado...")
-                    print("Archivo generado: certificado.txt")
-                    archivo = open("certificado.txt", "w")
-                    archivo.write(str(i) + " " + str(j) + " " + str(k))
-                    archivo.close()
-                    return True
-
-    return False
-
-# Algoritmo que verifica el problema de partcion de clanes recibiendo como parametro el archivo graph_si.txt, el cual contiene la gráfica G y el archivo certificado.txt, el cual contiene la subgráfica certificada.
-
-# El algoritmo tomara cada vértice de la sub grafica y buscara si en el conjunto de aristas original existe una arista que una a un vértice de esta subgrafica con algun otro de esta misma subgrafica. Si llegase a existir en alguna subgrafica una arista que una a dos vértices de la misma subgrafica el certificado sera rechaza, pues cada vértice perteneciente a una misma subgrafica tiene el mismo color, por lo cual no satisface el problema de coloracion de vértices. Si llegase a terminar la exploracién y ningun vértice es adyacente a otro de su misma subgrafica, el certificado se acepta, pues satisface al problema de coloracion de vértices.
-
-
-def verificacion():
-
-    # Abrimos el archivo graph_si.txt y lo leemos
-    archivo = open("graph_si.txt", "r")
-    texto = archivo.read()
-    archivo.close()
-
-    # Creamos una lista con las lineas del archivo
-    lineas = texto.split("\n")
-
-    # Creamos un diccionario con la gráfica G
-    G = dict()
-    for i in range(1, len(lineas)):
-        G[i] = dict()
-        for j in range(1, len(lineas)):
-            G[i][j] = int(lineas[i][j - 1])
-
-    # Abrimos el archivo certificado.txt y lo leemos
-    archivo = open("certificado.txt", "r")
-    texto = archivo.read()
-    archivo.close()
-
-    # Creamos una lista con las lineas del archivo
-    lineas = texto.split("\n")
-
-    # Creamos un diccionario con la gráfica G
-    C = dict()
-    for i in range(1, len(lineas)):
-        C[i] = dict()
-        for j in range(1, len(lineas)):
-            C[i][j] = int(lineas[i][j - 1])
-
-    # Creamos una lista con los vertices de la subgrafica
-    vertices = list(C.keys())
-
-    # Creamos una lista con las aristas de la subgrafica
-    aristas = []
-    for i in C:
-        for j in C:
-            if (C[i][j] == 1):
-                aristas.append((i, j))
-
-    # Creamos una lista con los vertices de la gráfica original
-    verticesG = list(G.keys())
-
-    # Creamos una lista con las aristas de la gráfica original
-    aristasG = []
-    for i in G:
-        for j in G:
-            if (G[i][j] == 1):
-                aristasG.append((i, j))
-
-    # Revisamos si en la subgrafica existe una arista que una a un
-    # vértice de esta subgrafica con algun otro de esta misma
-    # subgrafica.
-    for i in aristas:
-        if (i[0] in vertices and i[1] in vertices):
-            return False
-            # print("Algoritmode verificacion: Rechazado")
-
-    # Si no existe ninguna arista que una a un vértice de esta  subgrafica con algun otro de esta misma subgrafica, entonces el certificado es aceptado.
-    return True
-    # print("Algoritmo de verificacion: Aceptado")
-
-
-if __name__ == "__main__":
-
-    print("\nLeyendo archivo...")
-    f = open(sys.argv[1], "r")
-    print(f.read())
-    # Contar vértices del archivo sin duplciados.
-    f = open(sys.argv[1], "r")
+def generarInfoGrafica(f):
     vertices = []
 
     # Primero obtenemos todas las aristas a partir de los "saltos de línea".
@@ -300,6 +169,22 @@ if __name__ == "__main__":
         u, v = arista
         graph[u][v] = 1
         graph[v][u] = 1
+
+    return [graph, vertices, lista_aristas]
+
+
+if __name__ == "__main__":
+
+    print("\nLeyendo archivo...")
+    f = open(sys.argv[1], "r")
+    print(f.read())
+    # Contar vértices del archivo sin duplciados.
+    f = open(sys.argv[1], "r")
+
+    infoGrafica = generarInfoGrafica(f)
+    graph = infoGrafica[0]
+    vertices = infoGrafica[1]
+    lista_aristas = infoGrafica[2]
 
     # Respuestas:
     print("\nNumero de vértices en G:", len(vertices))
@@ -336,15 +221,3 @@ if __name__ == "__main__":
             print("{} Sí\n".format(pregunta))
         else:
             print("{} No\n".format(pregunta))
-
-    # imprimir certificado
-    print("Certificado:", certificado(graph))
-
-    # Algoritmo de verificacion
-    # si verificacion es true, imprime "Algoritmo de verificacion: Aceptado"
-
-    if verificacion():
-        print("Algoritmo de verificacion: Aceptado")
-    # si verificacion es false, imprime "Algoritmo de verificacion: Rechazado"
-    else:
-        print("Algoritmo de verificacion: Rechazado")
