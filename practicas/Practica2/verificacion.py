@@ -7,69 +7,23 @@ from clanes import generarInfoGrafica
 # El algoritmo tomara cada vértice de la sub grafica y buscara si en el conjunto de aristas original existe una arista que una a un vértice de esta subgrafica con algun otro de esta misma subgrafica. Si llegase a existir en alguna subgrafica una arista que una a dos vértices de la misma subgrafica el certificado sera rechaza, pues cada vértice perteneciente a una misma subgrafica tiene el mismo color, por lo cual no satisface el problema de coloracion de vértices. Si llegase a terminar la exploracién y ningun vértice es adyacente a otro de su misma subgrafica, el certificado se acepta, pues satisface al problema de coloracion de vértices.
 
 
-def verificacion():
-
-    # Abrimos el archivo graph_si.txt y lo leemos
-    archivo = open("graph_si.txt", "r")
-    texto = archivo.read()
-    archivo.close()
-
-    # Creamos una lista con las lineas del archivo
-    lineas = texto.split("\n")
-
-    # Creamos un diccionario con la gráfica G
-    G = dict()
-    for i in range(1, len(lineas)):
-        G[i] = dict()
-        for j in range(1, len(lineas)):
-            G[i][j] = int(lineas[i][j - 1])
-
-    # Abrimos el archivo certificado.txt y lo leemos
-    archivo = open("certificado.txt", "r")
-    texto = archivo.read()
-    archivo.close()
-
-    # Creamos una lista con las lineas del archivo
-    lineas = texto.split("\n")
-
-    # Creamos un diccionario con la gráfica G
-    C = dict()
-    for i in range(1, len(lineas)):
-        C[i] = dict()
-        for j in range(1, len(lineas)):
-            C[i][j] = int(lineas[i][j - 1])
-
-    # Creamos una lista con los vertices de la subgrafica
-    vertices = list(C.keys())
-
-    # Creamos una lista con las aristas de la subgrafica
-    aristas = []
-    for i in C:
-        for j in C:
-            if (C[i][j] == 1):
-                aristas.append((i, j))
-
-    # Creamos una lista con los vertices de la gráfica original
-    verticesG = list(G.keys())
-
-    # Creamos una lista con las aristas de la gráfica original
-    aristasG = []
-    for i in G:
-        for j in G:
-            if (G[i][j] == 1):
-                aristasG.append((i, j))
-
-    # Revisamos si en la subgrafica existe una arista que una a un
-    # vértice de esta subgrafica con algun otro de esta misma
-    # subgrafica.
-    for i in aristas:
-        if (i[0] in vertices and i[1] in vertices):
-            return False
-            # print("Algoritmode verificacion: Rechazado")
-
-    # Si no existe ninguna arista que una a un vértice de esta  subgrafica con algun otro de esta misma subgrafica, entonces el certificado es aceptado.
-    return True
-    # print("Algoritmo de verificacion: Aceptado")
+def verificacion(k, aristas, certificado):
+    if (len(certificado) > k):
+        return False
+    else:
+        # Por cada subgráfica debemos de revisar que
+        # para cada vértice exista una arista del vértice
+        # a todos los demás de la misma.
+        # Si no, entonces la subráfica no es un clan.
+        for subgrafica in certificado:
+            if len(subgrafica) > 1:
+                for u in subgrafica:
+                    for v in subgrafica:
+                        if (u != v):
+                            arista = [u, v]
+                            if arista not in aristas:
+                                return False
+        return True
 
 
 if __name__ == "__main__":
@@ -115,7 +69,7 @@ if __name__ == "__main__":
 
     print('Certificado: ', certificado)
     pregunta = "¿El ejemplar, con el certificado dado, satisface la condición de pertenencia al lenguaje correspondiente?"
-    if len(certificado) > k:
-        print("{} No\n".format(pregunta))
-    else:
+    if verificacion(k, lista_aristas, certificado):
         print("{} Sí\n".format(pregunta))
+    else:
+        print("{} No\n".format(pregunta))
