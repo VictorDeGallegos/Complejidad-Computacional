@@ -8,21 +8,15 @@ from clanes import generarInfoGrafica
 
 
 def verificacion(k, aristas, certificado):
-    if (len(certificado) > k):
+    if len(certificado) > k:
         return False
     else:
-        # Por cada subgráfica debemos de revisar que
-        # para cada vértice exista una arista del vértice
-        # a todos los demás de la misma.
-        # Si no, entonces la subráfica no es un clan.
-        for subgrafica in certificado:
-            if len(subgrafica) > 1:
-                for u in subgrafica:
-                    for v in subgrafica:
-                        if (u != v):
-                            arista = [u, v]
-                            if arista not in aristas:
-                                return False
+        for i in range(len(certificado)):
+            for j in range(len(certificado[i])):
+                for k in range(len(certificado[i])):
+                    if j != k:
+                        if (certificado[i][j], certificado[i][k]) in aristas:
+                            return False
         return True
 
 
