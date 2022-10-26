@@ -139,12 +139,20 @@ def existenTresClanes(G):
 def generarInfoGrafica(f):
     vertices = []
 
-    # Primero obtenemos todas las aristas a partir de los "saltos de línea".
+    # Obtenemos la k y la info de la gráfica en binario.
+    datos = []
     for x in f:
-        vertices.append(x.split("00"))
+        datos.append(x.split("000"))
+    datos = datos[0]
+
+    # Codificamos la k.
+    k = len(datos[0])
+
+    # Primero obtenemos todas las aristas a partir de los "saltos de línea".
+    vertices = datos[1].split("00")
 
     # De las aristas separamos los vértices.
-    vertices = [item.split("0") for sublist in vertices for item in sublist]
+    vertices = [item.split("0") for item in vertices]
 
     # Guardamos las aristas.
     for arista in vertices:
@@ -170,7 +178,7 @@ def generarInfoGrafica(f):
         graph[u][v] = 1
         graph[v][u] = 1
 
-    return [graph, vertices, lista_aristas]
+    return [graph, vertices, lista_aristas, k]
 
 
 if __name__ == "__main__":
@@ -185,6 +193,7 @@ if __name__ == "__main__":
     graph = infoGrafica[0]
     vertices = infoGrafica[1]
     lista_aristas = infoGrafica[2]
+    k = infoGrafica[3]
 
     # Respuestas:
     print("\nNumero de vértices en G:", len(vertices))
@@ -192,12 +201,7 @@ if __name__ == "__main__":
     print("Numero de aristas en G:", int(len(lista_aristas)/2))
 
     # imprimir valor de k = 3 si el archivo leido es graph_si_3.txt
-    if sys.argv[1] == "graph_si_3.txt":
-        print("k = 3")
-    elif sys.argv[1] == "graph_si.txt":
-        print("k = 2")
-    elif sys.argv[1] == "graph_no.txt":
-        print("k = 2")
+    print("k = ", k)
 
     print("Codificación del primer vértice de G:", vertices[0])
 

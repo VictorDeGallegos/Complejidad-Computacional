@@ -8,15 +8,21 @@ from clanes import generarInfoGrafica
 
 
 def verificacion(k, aristas, certificado):
-    if len(certificado) > k:
+    if (len(certificado) > k):
         return False
     else:
-        for i in range(len(certificado)):
-            for j in range(len(certificado[i])):
-                for k in range(len(certificado[i])):
-                    if j != k:
-                        if (certificado[i][j], certificado[i][k]) in aristas:
-                            return False
+        # Por cada subgráfica debemos de revisar que
+        # para cada vértice exista una arista del vértice
+        # a todos los demás de la misma.
+        # Si no, entonces la subráfica no es un clan.
+        for subgrafica in certificado:
+            if len(subgrafica) > 1:
+                for u in subgrafica:
+                    for v in subgrafica:
+                        if (u != v):
+                            arista = [u, v]
+                            if arista not in aristas:
+                                return False
         return True
 
 
@@ -44,6 +50,7 @@ if __name__ == "__main__":
     graph = infoGrafica[0]
     vertices = infoGrafica[1]
     lista_aristas = infoGrafica[2]
+    k = infoGrafica[3]
 
     # Respuestas:
     print("\nNumero de vértices en G:", len(vertices))
@@ -51,15 +58,7 @@ if __name__ == "__main__":
     print("Numero de aristas en G:", int(len(lista_aristas)/2))
 
     # imprimir valor de k = 3 si el archivo leido es graph_si_3.txt
-    if sys.argv[1] == "graph_si_3.txt":
-        k = 3
-        print("k = 3")
-    elif sys.argv[1] == "graph_si.txt":
-        k = 2
-        print("k = 2")
-    elif sys.argv[1] == "graph_no.txt":
-        k = 2
-        print("k = 2")
+    print("k = ", k)
 
     # print('Certificado: ', certificado)
 
