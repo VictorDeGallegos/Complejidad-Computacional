@@ -60,13 +60,13 @@ python3 verificacion.py 'nombre de la grafica' certificado.txt
 
 ### Ejemplar `graph_si.txt` con 6 vertices, 7 aristas, K=2
 
-#### Certificado
+#### Certificado graph_si.txt
 
 El siguiente comando `python3 certificado.py graph_si.txt certificado.txt` genera un certificado aleatorio o subconjunto de los vertices con un tamaño k guardandolo en un archivo tipo txt, para su mejor representacion se muestra por colores.
 
 ![Certificado](https://user-images.githubusercontent.com/41756950/197892790-0de31397-0084-4979-b8b5-8222458aff30.png)
 
-#### Verificación `False`
+#### Verificación `False` graph_si.txt
 
 El siguiente comando `python3 verificacion.py graph_si.txt certificado.txt` ejecuta el algoritmo de verificació para el problema de PARTICIÓN DE CLANES, en su vesión de decisión.
 
@@ -74,23 +74,27 @@ En este caso **NO** satisface la condicion de pertenencia al lenguaje
 
 ![verificacion](https://user-images.githubusercontent.com/41756950/197894648-f829b1cd-919e-428f-90fa-d06ba70b4770.png)
 
-#### Verificación `True`
+#### Verificación `True` graph_si.txt
 
 Volvemos   a ejecutar el comando `python3 verificacion.py graph_si.txt certificado.txt` pero esta vez con un certificado que si cumple con la condicion de pertenencia al lenguaje.
 
 En este caso **SI** satisface la condicion de pertenencia al lenguaje
 
+**Representacion gráfica:**
+
+![grafica 1](https://cdn.discordapp.com/attachments/1009211692774866994/1018779425434767391/ejemplar2.png)
+
 ![Verificacion true](https://user-images.githubusercontent.com/41756950/197896053-c8bd594b-4aa5-410c-9878-6f8a3f584df4.png)
 
 ### Ejemplar `graph_si_3` con 6 vértices, 10 aristas, K=3
 
-#### Certificado
+#### Certificado graph_si_3
 
 El siguiente comando `python3 certificado.py graph_si_3.txt certificado.txt` genera un certificado aleatorio o subconjunto de los vertices con un tamaño k guardandolo en un archivo tipo txt, para su mejor representacion se muestra por colores.
 
 ![certificado](https://user-images.githubusercontent.com/41756950/197900630-6d5a7c58-e631-4729-b5b6-e37fc4367ed3.png)
 
-#### Verificación `False`
+#### Verificación `False` graph_si_3
 
 El siguiente comando `python3 verificacion.py graph_si_3.txt certificado.txt` ejecuta el algoritmo de verificació para el problema de PARTICIÓN DE CLANES, en su vesión de decisión.
 
@@ -98,38 +102,67 @@ En este caso **NO** satisface la condicion de pertenencia al lenguaje
 
 ![verificacion false](https://user-images.githubusercontent.com/41756950/197900730-68c19184-e1ef-4bd9-a84e-03eb6ab88702.png)
 
-#### Verificación `True`
+#### Verificación `True` graph_si_3
+
 
 Volvemos   a ejecutar el comando `python3 verificacion.py graph_si_3.txt certificado.txt` pero esta vez con un certificado que si cumple con la condicion de pertenencia al lenguaje.
 
 En este caso **SI** satisface la condicion de pertenencia al lenguaje
 
+**Representacion gráfica:**
+
+![representacion grafica k=3](https://cdn.discordapp.com/attachments/1009211692774866994/1018776575312936970/ejemplar15.png)
+
 ![verificacion true](https://user-images.githubusercontent.com/41756950/197908407-f99ee887-09f8-420e-83e3-03bcbf6d525a.png)
 
-### Ejemplar con 6 vértices, 6 aristas, K=2
+### Ejemplar `graph_si_copy` con 6 vértices, 7 aristas, K=3
 
-#### Certificado
+#### Certificado graph_si_copy
 
-El siguiente comando `python3 certificado.py graph_no.txt certificado.txt` genera un certificado aleatorio o subconjunto de los vertices con un tamaño k guardandolo en un archivo tipo txt, para su mejor representacion se muestra por colores.
+El siguiente comando `python3 certificado.py graph_si_copy.txt certificado.txt` genera un certificado aleatorio o subconjunto de los vertices con un tamaño k guardandolo en un archivo tipo txt, para su mejor representacion se muestra por colores.
 
-![certificado](https://user-images.githubusercontent.com/41756950/197909134-eff12f8d-df94-4c21-80db-648708a8a270.png)
+![certificado](https://user-images.githubusercontent.com/41756950/197942639-c30ece5e-6486-4386-801d-e879b593b17a.png)
 
-#### Verificación `False`
+#### Verificación 1 `False` graph_si_copy
+
+El siguiente comando `python3 verificacion.py graph_si_copy.txt certificado.txt` ejecuta el algoritmo de verificació para el problema de PARTICIÓN DE CLANES, en su vesión de decisión.
+
+En este caso **NO** satisface la condicion de pertenencia al lenguaje
+
+![Verificacion false](https://user-images.githubusercontent.com/41756950/197942692-c1785d73-d749-4d69-b5e5-e251bcd2a797.png)
+
+#### Verificación  `True` graph_si_copy
+
+El siguiente comando `python3 verificacion.py graph_si_copy.txt certificado.txt` ejecuta el algoritmo de verificació para el problema de PARTICIÓN DE CLANES, en su vesión de decisión.
+
+En este caso **SI** satisface la condicion de pertenencia al lenguaje
+
+**Representacion gráfica:**
+
+![ejemplar](https://cdn.discordapp.com/attachments/1009211692774866994/1034697804985151488/draw.png)
+
+![Verificacion true](https://user-images.githubusercontent.com/41756950/197939881-c6ac69dd-0f89-40e7-9bea-8937a9dffb13.png)
+
+### Ejemplar `EXTRA` con 6 vértices, 6 aristas, K=2 que no es particion de clanes
+
+#### Certificado extra graph_no.txt
+
+Cualquier certificado generado no cumple con la condicion de pertenencia al lenguaje.
+
+
+#### Verificación extra `False` graph_no.txt
 
 El siguiente comando `python3 verificacion.py graph_no.txt certificado.txt` ejecuta el algoritmo de verificació para el problema de PARTICIÓN DE CLANES, en su vesión de decisión.
 
 En este caso **NO** satisface la condicion de pertenencia al lenguaje
 
-![Verificacion false](https://user-images.githubusercontent.com/41756950/197909363-60d994c2-eb46-43e3-900d-8b071137e639.png)
+**Representacion gráfica:**
 
-#### Verificación `True`
+![representacion sin clanes](https://cdn.discordapp.com/attachments/1009211692774866994/1018787317214875648/ejemplar5.png)
 
-Volvemos   a ejecutar el comando `python3 verificacion.py graph_no.txt certificado.txt` pero esta vez con un certificado que si cumple con la condicion de pertenencia al lenguaje.
+![Error](https://user-images.githubusercontent.com/41756950/197938736-29b2ae32-79e0-461f-9773-80ce04277f93.png)
 
-En este caso **SI** satisface la condicion de pertenencia al lenguaje
-
-![verificacion true](https://user-images.githubusercontent.com/41756950/197909534-c4e5cdf2-101d-444b-ab43-f0e6ec056c9d.png)
-
+**Todos los ejemplares serán inválidos, ya que no cumple con la particion de clanes.**
 
 ## Expresiones de Gratitud 🎁
 
